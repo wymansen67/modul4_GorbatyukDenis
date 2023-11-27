@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">WorldCinema</string>
+
+    //Title.
+    <string name="world_cinema">WorldCinema</string>
+    <string name="capitan_marvel">Capitan Marvel</string>
+
+    //Titles bottom navigation menu.
+    <string name="title_main">Main</string>
+    <string name="title_selection">Selections</string>
+    <string name="title_collections">Collections</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_activity_main2">MainActivity2</string>
+
+    //EditText.
+    <string name="name">Name</string>
+    <string name="lastname">Lastname</string>
+    <string name="email">E-mail</string>
+    <string name="password">Password</string>
+    <string name="repeat_password">Confirm Password</string>
+
+    //Button.
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign In</string>
+    <string name="registration">Registration</string>
+    <string name="already_have_account">I have an account</string>
+
+    //Toast.
+    <string name="empty_field">Empty filed</string>
+    <string name="password_not_match">Password not match</string>
+</resources>
