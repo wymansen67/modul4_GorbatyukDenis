@@ -107,7 +107,7 @@
                 android:textStyle="bold" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/buttonHaveAcc"
+                android:id="@+id/buttonHaveAccount"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_gravity="center"

@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.worldcinematest.R
 import com.example.worldcinematest.databinding.DiscussionBinding
 
-class DiscussionAdapter(val listener: Listener) :
+class DiscussionAdapter(private val listener: Listener) :
     RecyclerView.Adapter<DiscussionAdapter.DiscussionHolder>() {
-    val discussionList = ArrayList<Discussion>()
+    private val discussionList = ArrayList<Discussion>()
 
     class DiscussionHolder(item: View) : RecyclerView.ViewHolder(item) {
         val binding = DiscussionBinding.bind(item)

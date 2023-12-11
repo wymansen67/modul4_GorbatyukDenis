@@ -6,19 +6,19 @@ import com.example.worldcinematest.databinding.ActivityChatBinding
 
 class ChatActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityChatBinding
+    private lateinit var chat: ActivityChatBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityChatBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        chat = ActivityChatBinding.inflate(layoutInflater)
+        setContentView(chat.root)
 
         var intent = intent.extras
         if (intent != null) {
-            binding.ChatTitle.text = intent.getString("chatname", "")
+            chat.ChatTitle.text = intent.getString("chatname", "")
         }
 
-        binding.Back.setOnClickListener {
+        chat.Back.setOnClickListener {
             finish()
         }
     }

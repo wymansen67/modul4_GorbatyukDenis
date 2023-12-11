@@ -47,13 +47,12 @@
     <string name="such_mail_is_already_registered">Такая почта уже зарегистрирована</string>
     <string name="invalid_input">Недопустимый ввод</string>
     <string name="only_contain_letters">Имя и Фамилия могут содержать только буквы</string>
-    <string name="name_too_short">Имя слишком короткое</string>
-    <string name="name_too_long">Имя слишком длинное</string>
-    <string name="lastname_too_long">Фамилия слишком длинная</string>
+    <string name="invalid_name_length">Имя должно быть длинной от 2 до 20 символов</string>
+    <string name="invalid_lastname_length">Фамилия должна быть длинной от 2 до 45 символов</string>
     <string name="incorrect_email">Неверный адрес электронной почты</string>
     <string name="check_password">Пароль должен содержать не менее 8 и не более 20 символов</string>
     <string name="would_you_like">Хотите зарегистрироваться?</string>
-    <string name="yes">Да, хочу</string>
+    <string name="yes">Да</string>
 
     //Menu.
     <string-array name="itemsoption">

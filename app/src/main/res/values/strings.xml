@@ -47,13 +47,12 @@
     <string name="such_mail_is_already_registered">Such mail is already registered</string>
     <string name="invalid_input">Invalid input</string>
     <string name="only_contain_letters">The Name and The Lastname can only contain letters</string>
-    <string name="name_too_short">The Name too short</string>
-    <string name="name_too_long">The Name too long</string>
-    <string name="lastname_too_long">The Lastname too long</string>
+    <string name="invalid_name_length">Name should be from 2 to 20 characters long</string>
+    <string name="invalid_lastname_length">Name should be from 2 to 45 characters long</string>
     <string name="incorrect_email">Incorrect E-mail</string>
     <string name="check_password">The password no less than 8 and no more than 20 characters</string>
     <string name="would_you_like">Would you like to register?</string>
-    <string name="yes">Yes I want to</string>
+    <string name="yes">Yes</string>
     <string name="title" translatable="false">Title</string>
     <string name="time" translatable="false">Time</string>
     <string name="date" translatable="false">Date</string>

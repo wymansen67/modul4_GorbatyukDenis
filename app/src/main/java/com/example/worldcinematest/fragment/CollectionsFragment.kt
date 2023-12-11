@@ -14,12 +14,11 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.worldcinematest.R
+import com.example.worldcinematest.activity.EditorActivity
 import com.example.worldcinematest.common.AppDatabase
 import com.example.worldcinematest.common.MyCollection
 import com.example.worldcinematest.common.MyCollectionAdapter
-import com.example.worldcinematest.R
-import com.example.worldcinematest.activity.EditorActivity
-import java.util.ArrayList
 
 class CollectionsFragment : Fragment() {
 
@@ -27,7 +26,7 @@ class CollectionsFragment : Fragment() {
     private lateinit var bAdd: ImageButton
     private var list = ArrayList<MyCollection>()
     private lateinit var adapter: MyCollectionAdapter
-    private lateinit var database: AppDatabase
+    private lateinit var db: AppDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,10 +38,9 @@ class CollectionsFragment : Fragment() {
         recyclerView = view.findViewById(R.id.rvCollections)
         bAdd = view.findViewById(R.id.buttonAdd)
 
-        database = AppDatabase.getInstance(requireContext())
+        db = AppDatabase.getInstance(requireContext())
         adapter = MyCollectionAdapter(list)
         adapter.setDialog(object : MyCollectionAdapter.Dialog {
-
             override fun onClick(position: Int) {
                 val dialog = AlertDialog.Builder(requireContext())
                 dialog.setTitle(list[position].cName)
@@ -59,7 +57,7 @@ class CollectionsFragment : Fragment() {
                             }
 
                             1 -> {
-                                database.myCollectionDao().delete(list[position])
+                                db.myCollectionDao().delete(list[position])
                                 getData()
                             }
 
@@ -71,7 +69,6 @@ class CollectionsFragment : Fragment() {
                 val dialogView = dialog.create()
                 dialogView.show()
             }
-
         })
 
         recyclerView.adapter = adapter
@@ -103,7 +100,7 @@ class CollectionsFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
                 val myCollection = adapter.getItemAtPosition(position)
-                database.myCollectionDao().delete(myCollection)
+                db.myCollectionDao().delete(myCollection)
                 adapter.removeItem(position)
             }
         })
@@ -121,7 +118,7 @@ class CollectionsFragment : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun getData() {
         list.clear()
-        list.addAll(database.myCollectionDao().getAll())
+        list.addAll(db.myCollectionDao().getAll())
         adapter.notifyDataSetChanged()
     }
 }

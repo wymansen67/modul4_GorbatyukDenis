@@ -1,30 +1,29 @@
 package com.example.worldcinematest.fragment
 
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
 import android.os.Bundle
-import android.util.Log
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.worldcinematest.common.AppDatabase
-import com.example.worldcinematest.common.MenuItem
-import com.example.worldcinematest.common.MenuItemAdapter
 import com.example.worldcinematest.R
 import com.example.worldcinematest.activity.ChatListActivity
 import com.example.worldcinematest.activity.SignUpActivity
+import com.example.worldcinematest.common.MenuItem
+import com.example.worldcinematest.common.MenuItemAdapter
 import com.example.worldcinematest.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment(), MenuItemAdapter.Listener {
 
-    private lateinit var profile: FragmentProfileBinding
+    private lateinit var profileFragment: FragmentProfileBinding
+    private lateinit var launcher: ActivityResultLauncher<Intent>
     private var adapter = MenuItemAdapter(this)
     private lateinit var shPref: SharedPreferences
 
@@ -37,9 +36,9 @@ class ProfileFragment : Fragment(), MenuItemAdapter.Listener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        profile = FragmentProfileBinding.inflate(inflater, container, false)
-        return profile.root
+    ): View {
+        profileFragment = FragmentProfileBinding.inflate(inflater, container, false)
+        return profileFragment.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,7 +49,15 @@ class ProfileFragment : Fragment(), MenuItemAdapter.Listener {
             AppCompatActivity.MODE_PRIVATE
         )
 
-        profile.apply {
+        launcher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == RESULT_OK) {
+                profileFragment.avatar?.setImageURI(result.data?.data)
+            }
+        }
+
+        profileFragment.apply {
             ProfileName.text = shPref.getString("name", "").toString()
             ProfileLastname.text = shPref.getString("lastname", "").toString()
             ProfileEmail.text = shPref.getString("email", "").toString()
@@ -69,26 +76,10 @@ class ProfileFragment : Fragment(), MenuItemAdapter.Listener {
                 activity?.finish()
             }
 
-            changeIcon?.setOnClickListener{
-                pickImageFromGallery()
+            changeIcon?.setOnClickListener {
+                val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                launcher.launch(pickIntent)
             }
-        }
-    }
-
-    companion object {
-        val IMAGE_REQUEST_CODE = 1_000;
-    }
-
-    private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_REQUEST_CODE)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
-            profile.avatar?.setImageURI(data?.data)
         }
     }
 

@@ -2,7 +2,6 @@ package com.example.worldcinematest.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.widget.Toast
@@ -16,7 +15,7 @@ import com.example.worldcinematest.databinding.ActivityEditorBinding
 
 class EditorActivity : AppCompatActivity(), CollectionIconAdapter.Listener {
 
-    private lateinit var editorActivity: ActivityEditorBinding
+    private lateinit var editor: ActivityEditorBinding
     private lateinit var database: AppDatabase
     private var imageIdList = listOf(
         CollectionIcon(R.drawable.heart),
@@ -63,53 +62,53 @@ class EditorActivity : AppCompatActivity(), CollectionIconAdapter.Listener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        editorActivity = ActivityEditorBinding.inflate(layoutInflater)
-        setContentView(editorActivity.root)
+        editor = ActivityEditorBinding.inflate(layoutInflater)
+        setContentView(editor.root)
 
         database = AppDatabase.getInstance(applicationContext)
-        editorActivity.rvIcons.layoutManager = GridLayoutManager(this@EditorActivity, 4)
-        editorActivity.rvIcons.adapter = adapter
+        editor.rvIcons.layoutManager = GridLayoutManager(this@EditorActivity, 4)
+        editor.rvIcons.adapter = adapter
         adapter.addImage(imageIdList)
 
-        editorActivity.CollectionIcon.setImageResource(imageId)
+        editor.CollectionIcon.setImageResource(imageId)
 
         val intent = intent.extras
         if (intent != null) {
             id = intent.getInt("id", 0)
             val mycollection = database.myCollectionDao().get(id)
-            editorActivity.Title.text = intent.getString("title", "")
-            editorActivity.CollectionName.setText(mycollection.cName)
+            editor.Title.text = intent.getString("title", "")
+            editor.CollectionName.setText(mycollection.cName)
             imageId = mycollection.cImage!!
-            editorActivity.CollectionIcon.setImageResource(imageId)
+            editor.CollectionIcon.setImageResource(imageId)
 
         } else {
             val randImg = imageIdList.random().toString()
             val i = randImg.indexOf("=")
             imageId = randImg.substring(i+1, randImg.length-1).toInt()
-            editorActivity.CollectionIcon.setImageResource(imageId)
+            editor.CollectionIcon.setImageResource(imageId)
         }
 
-        editorActivity.ibBack.setOnClickListener {
+        editor.ibBack.setOnClickListener {
             finish()
         }
 
-        editorActivity.Cancel.setOnClickListener {
-            editorActivity.ChangeIcon.visibility = GONE
+        editor.Cancel.setOnClickListener {
+            editor.ChangeIcon.visibility = GONE
         }
 
-        editorActivity.buttonChangeIcon.setOnClickListener {
-            editorActivity.ChangeIcon.visibility = VISIBLE
+        editor.buttonChangeIcon.setOnClickListener {
+            editor.ChangeIcon.visibility = VISIBLE
         }
 
-        editorActivity.buttonSave.setOnClickListener {
-            if (editorActivity.CollectionName.text.isNotEmpty()) {
-                if (OnlyLetters(editorActivity.CollectionName.text.toString())) {
-                    if (editorActivity.CollectionName.text.toString().length <= 20) {
+        editor.buttonSave.setOnClickListener {
+            if (editor.CollectionName.text.isNotEmpty()) {
+                if (OnlyLetters(editor.CollectionName.text.toString())) {
+                    if (editor.CollectionName.text.toString().length <= 20) {
                         if (intent != null) {
                             database.myCollectionDao().update(
                                 MyCollection(
                                     id,
-                                    editorActivity.CollectionName.text.toString(),
+                                    editor.CollectionName.text.toString(),
                                     imageId
                                 )
                             )
@@ -117,7 +116,7 @@ class EditorActivity : AppCompatActivity(), CollectionIconAdapter.Listener {
                             database.myCollectionDao().insertAll(
                                 MyCollection(
                                     null,
-                                    editorActivity.CollectionName.text.toString(),
+                                    editor.CollectionName.text.toString(),
                                     imageId
                                 )
                             )
@@ -139,7 +138,7 @@ class EditorActivity : AppCompatActivity(), CollectionIconAdapter.Listener {
 
     override fun onClick(position: Int) {
         imageId = position
-        editorActivity.CollectionIcon.setImageResource(position)
+        editor.CollectionIcon.setImageResource(position)
     }
 
     fun OnlyLetters(text: String): Boolean {

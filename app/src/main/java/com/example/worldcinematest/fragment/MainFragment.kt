@@ -19,15 +19,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MainFragment : Fragment() {
 
-    private lateinit var binding: FragmentMainBinding // Assuming you have a corresponding binding class for the fragment layout
+    private lateinit var mainFragment: FragmentMainBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment using the binding
-        binding = FragmentMainBinding.inflate(inflater, container, false)
-        return binding.root
+        mainFragment = FragmentMainBinding.inflate(inflater, container, false)
+        return mainFragment.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,7 +59,7 @@ class MainFragment : Fragment() {
                 val event = socialEventsApi.getEventById()
 
                 withContext(Dispatchers.Main) {
-                    binding.apply {
+                    mainFragment.apply {
                         for (e in event.events) {
                             title.text = e.name
                             data.text = e.eventDate
@@ -69,7 +68,7 @@ class MainFragment : Fragment() {
                     }
                 }
             } catch (e: Exception) {
-                // Handle API call failure, show an error message or log the exception
+                // Handle API call failure
                 withContext(Dispatchers.Main) {
                     Toast.makeText(
                         requireContext(),

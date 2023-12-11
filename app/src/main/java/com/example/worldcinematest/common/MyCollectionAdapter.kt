@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.worldcinematest.R
 
-class MyCollectionAdapter(var list: ArrayList<MyCollection>) :
+class MyCollectionAdapter(private var list: ArrayList<MyCollection>) :
     RecyclerView.Adapter<MyCollectionAdapter.ViewHolder>() {
 
     private lateinit var dialog: Dialog
@@ -22,8 +22,8 @@ class MyCollectionAdapter(var list: ArrayList<MyCollection>) :
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var collectionName: TextView
-        var collectionImage: ImageView
+        private var collectionName: TextView
+        private var collectionImage: ImageView
         var imageIdList = listOf(
             R.drawable.heart,
             R.drawable.book,
@@ -97,7 +97,7 @@ class MyCollectionAdapter(var list: ArrayList<MyCollection>) :
         return list[position]
     }
 
-    // New method to handle swipe-to-delete
+    //swipe-to-delete method
     fun removeItem(position: Int) {
         list.removeAt(position)
         notifyItemRemoved(position)

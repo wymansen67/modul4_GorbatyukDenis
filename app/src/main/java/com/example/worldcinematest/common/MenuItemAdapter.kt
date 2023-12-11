@@ -11,10 +11,10 @@ class MenuItemAdapter(private val listener: Listener) :
 
     RecyclerView.Adapter<MenuItemAdapter.MenuItemHolder>() {
 
-    val menuItemList = ArrayList<MenuItem>()
+    private val menuItemList = ArrayList<MenuItem>()
 
     class MenuItemHolder(item: View) : RecyclerView.ViewHolder(item) {
-        val binding = ItemBinding.bind(item)
+        private val binding = ItemBinding.bind(item)
         fun bind(menuItem: MenuItem, listener: Listener) = with(binding) {
             itemIcon.setImageResource(menuItem.imageId)
             itemName.text = menuItem.itemName

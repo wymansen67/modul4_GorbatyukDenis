@@ -18,15 +18,15 @@ interface MyCollectionDao {
     @Insert
     fun insertAll(vararg myCollection: MyCollection)
 
-    @Delete
-    fun delete(myCollection: MyCollection)
-
-    @Query("DELETE FROM myCollection")
-    fun deleteAll()
-
     @Query("SELECT * FROM myCollection WHERE cId = :cId")
     fun get(cId: Int): MyCollection
 
     @Update
     fun update(myCollection: MyCollection)
+
+    @Delete
+    fun delete(myCollection: MyCollection)
+
+    @Query("DELETE FROM myCollection")
+    fun deleteAll()
 }

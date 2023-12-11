@@ -12,19 +12,17 @@ import com.example.worldcinematest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var main: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        main = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(main.root)
 
-        val navView: BottomNavigationView = binding.navView
+        val navView: BottomNavigationView = main.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_main, R.id.navigation_selection,  R.id.navigation_collections, R.id.navigation_profile

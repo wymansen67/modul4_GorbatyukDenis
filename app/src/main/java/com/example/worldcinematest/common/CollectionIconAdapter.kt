@@ -7,14 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.worldcinematest.R
 import com.example.worldcinematest.databinding.IconBinding
 
-class CollectionIconAdapter(val listener: Listener) :
+class CollectionIconAdapter(private val listener: Listener) :
 
     RecyclerView.Adapter<CollectionIconAdapter.CollectionIconHolder>() {
 
-    val imageList = ArrayList<CollectionIcon>()
+    private val imageList = ArrayList<CollectionIcon>()
 
     class CollectionIconHolder(item: View) : RecyclerView.ViewHolder(item) {
-        val binding = IconBinding.bind(item)
+        private val binding = IconBinding.bind(item)
         fun bind(icon: CollectionIcon, listener: Listener) = with(binding) {
             ivIcon.setImageResource(icon.iconId)
             itemView.setOnClickListener {
